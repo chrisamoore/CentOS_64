@@ -33,39 +33,6 @@ class phpdevweb {
     }
 
 }
-
 include phpdevweb
 
-class redis {
-    package { "redis":
-        ensure => 'latest',
-        require => Yumrepo['remi'],
-    }
-    service { "redis":
-        enable => true,
-        ensure => running,
-    }
-}
-include redis
-
-class { 'mongodb' :
-    init => 'upstart',
-}
-include mongodb
-
-# class gearman {
-#     package { "gearman":
-#         ensure => 'latest',
-#         require => Yumrepo['remi'],
-#     }
-#     service { "gearmand":
-#         enable => true,
-#         ensure => running,
-#     }
-#     # exec { "main":
-#     #     command => "gearmand -d",
-#     #     path => "/usr/bin:/usr/sbin:/bin:/usr/local/bin",
-#     #     require => Package["gearman"]
-#     # }
-# }
-# include gearman
+package { 'mongodb': ensure => installed }

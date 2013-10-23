@@ -72,10 +72,10 @@ class server::php54 {
     ensure  => present,
   }
 
-  package { "php54-pecl-xdebug":
-    ensure  => present,
-    require => Exec["grab-epel"]
-  }
+  # package { "php54-pecl-xdebug":
+  #   ensure  => present,
+  #   require => Exec["grab-epel"]
+  # }
 
   package { "php54-pecl-apc":
     ensure  => present,
