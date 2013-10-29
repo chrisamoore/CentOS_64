@@ -1,7 +1,14 @@
 # Puppet manifest for my PHP dev machine
 Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
 
-class { 'epel': }
+# Setup stages so we can run certain tasks first or last
+stage { 'first': }
+stage { 'last': }
+Stage['first'] -> Stage['main'] -> Stage['last']
+
+class {"remi":
+    stage => first
+}
 include remi
 
 class phpdevweb {
@@ -33,6 +40,7 @@ class phpdevweb {
     }
 
 }
-include phpdevweb
 
-package { 'mongodb': ensure => installed }
+include phpdevweb
+include mongo
+include gearman
